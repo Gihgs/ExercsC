@@ -1,0 +1,14 @@
+#include <stdio.h>
+
+int main(void) {
+  int vet[10], i; 
+  
+  for(i=0; i<10; i++){ //ler as entradas até atingir 10 posições
+    scanf("%i", &vet[i]); //recebe cada valor para cada posição
+     if (vet[i]==0 || vet[i]<1){ //se o valor recebido for igual a zero ou negativo...
+      vet[i]= 1; //o elemento torna-se 1
+     }
+  }  
+   for(i=0; i<10; i++){
+      printf("X[%i] = %i\n",i, vet[i]); //imprime as posições e elementos do vetor até atingir a posição 10
+    }
