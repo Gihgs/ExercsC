@@ -1,95 +1,89 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node {
-    int key;
-    struct Node* left;
-    struct Node* right;
-} Node;
+typedef struct No {
+    int chave;
+    struct No* esq;
+    struct No* dir;
+} No;
 
-Node* createNode(int key) {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    newNode->key = key;
-    newNode->left = NULL;
-    newNode->right = NULL;
-    return newNode;
+No* criaNo(int chave) {
+    No* novo = (No*)malloc(sizeof(No));
+    novo->chave = chave;
+    novo->esq = NULL;
+    novo->dir = NULL;
+    return novo;
 }
 
-Node* insert(Node* root, int key) {
-    if (root == NULL)
-        return createNode(key);
+No* insereArv(No* raiz, int chave) {
+    if (raiz == NULL)
+        return criaNo(chave);
 
-    if (key < root->key)
-        root->left = insert(root->left, key);
+    if (chave < raiz->chave)
+        raiz->esq = insereArv(raiz->esq, chave);
     else
-        root->right = insert(root->right, key);
+        raiz->dir = insereArv(raiz->dir, chave);
 
-    return root;
+    return raiz;
 }
 
-void preOrder(Node* root) {
-    if (root != NULL) {
-        printf("%d ", root->key);
-        preOrder(root->left);
-        preOrder(root->right);
+void preOrdem(No* raiz) {
+    if (raiz != NULL) {
+        printf("%d ", raiz->chave);
+        preOrdem(raiz->esq);
+        preOrdem(raiz->dir);
     }
 }
 
-void inOrder(Node* root) {
-    if (root != NULL) {
-        inOrder(root->left);
-        printf("%d ", root->key);
-        inOrder(root->right);
+void emOrdem(No* raiz) {
+    if (raiz != NULL) {
+        emOrdem(raiz->esq);
+        printf("%d ", raiz->chave);
+        emOrdem(raiz->dir);
     }
 }
 
-void postOrder(Node* root) {
-    if (root != NULL) {
-        postOrder(root->left);
-        postOrder(root->right);
-        printf("%d ", root->key);
+void posOrdem(No* raiz) {
+    if (raiz != NULL) {
+        posOrdem(raiz->esq);
+        posOrdem(raiz->dir);
+        printf("%d ", raiz->chave);
     }
 }
 
-void freeTree(Node* root) {
-    if (root != NULL) {
-        freeTree(root->left);
-        freeTree(root->right);
-        free(root);
-    }
-}
+
 
 int main() {
-    int num_test_cases;
-    scanf("%d", &num_test_cases);
+    int nteste;
+    scanf("%d", &nteste);
 
-    for (int case_num = 1; case_num <= num_test_cases; case_num++) {
-        int num_numbers;
-        scanf("%d", &num_numbers);
+    for (int caso = 1; caso <= nteste; caso++) {
+        int num;
+        scanf("%d", &num);
 
-        Node* root = NULL;
-        for (int i = 0; i < num_numbers; i++) {
-            int number;
-            scanf("%d", &number);
-            root = insert(root, number);
+        No* raiz = NULL;
+        for (int i = 0; i < num; i++) {
+            int num;
+            scanf("%d", &num);
+            raiz = insereArv(raiz, num);
         }
 
-        printf("Case %d:\n", case_num);
+        printf("Case %d:\n", caso);
         printf("Pre.: ");
-        preOrder(root);
+        preOrdem(raiz);
         printf("\n");
 
         printf("In..: ");
-        inOrder(root);
+        emOrdem(raiz);
         printf("\n");
 
         printf("Post: ");
-        postOrder(root);
+        posOrdem(raiz);
         printf("\n");
 
         printf("\n");
 
-        freeTree(root);
+
     }
 
     return 0;
