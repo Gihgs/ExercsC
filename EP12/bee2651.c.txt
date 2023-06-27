@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
+#include <ctype.h>
+
+bool busca(const char *texto) {
+    const char *palavra = "zelda";
+    int tamTexto = strlen(texto);
+    int tamPalavra = strlen(palavra);
+    int i = 0, j = 0;
+
+    while (i < tamTexto) {
+        if (tolower(texto[i]) == palavra[j]) {
+            j++;
+            if (j == tamPalavra) {
+                return true;
+            }
+        } else {
+            j = 0;
+        }
+        i++;
+    }
+
+    return false;
+}
+
+int main() {
+    char nome[100001];
+    scanf("%s", nome);
+
+    if (busca(nome)) {
+        printf("Link Bolado\n");
+    } else {
+        printf("Link Tranquilo\n");
+    }
+
+    return 0;
+}
